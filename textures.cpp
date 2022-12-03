@@ -24,7 +24,7 @@ const TGAColor red = TGAColor(255, 0, 0, 255);
 
 int main1(int argc, char** argv) {
     TGAImage image(100, 100, TGAImage::RGB);
-    image.set(52, 41, red);
+    image.set(12, 12, red);
     image.flip_vertically(); // i want to have the origin at the left bottom corner of the image
     image.write_tga_file("output.tga");
     return 0;
@@ -32,6 +32,17 @@ int main1(int argc, char** argv) {
 
 int main()
 {
+    TGAImage image(240, 240, TGAImage::RGB);
+    for (int i = 10; i < 20; i++)
+    {
+        for (int j = 20; j < 30; j++)
+        {
+            image.set(j, i, white);
+        }
+    }
+    image.set(12, 12, red);
+    //image.flip_vertically(); // i want to have the origin at the left bottom corner of the image
+
     // glfw: initialize and configure
     // ------------------------------
     glfwInit();
@@ -45,7 +56,7 @@ int main()
 
     // glfw window creation
     // --------------------
-    GLFWwindow* window = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "LearnOpenGL", NULL, NULL);
+    GLFWwindow* window = glfwCreateWindow(200, 200, "LearnOpenGL", NULL, NULL);
     if (window == NULL)
     {
         std::cout << "Failed to create GLFW window" << std::endl;
@@ -71,10 +82,10 @@ int main()
     // ------------------------------------------------------------------
     float vertices[] = {
         // positions          // colors           // texture coords
-         0.5f,  0.5f, 0.0f,   1.0f, 0.0f, 0.0f,   1.0f, 1.0f, // top right
-         0.5f, -0.5f, 0.0f,   0.0f, 1.0f, 0.0f,   1.0f, 0.0f, // bottom right
-        -0.5f, -0.5f, 0.0f,   0.0f, 0.0f, 1.0f,   0.0f, 0.0f, // bottom left
-        -0.5f,  0.5f, 0.0f,   1.0f, 1.0f, 0.0f,   0.0f, 1.0f  // top left 
+         1.0f,  1.0f, 0.0f,   1.0f, 0.0f, 0.0f,   1.0f, 1.0f, // top right
+         1.0f, -1.0f, 0.0f,   0.0f, 1.0f, 0.0f,   1.0f, 0.0f, // bottom right
+        -1.0f, -1.0f, 0.0f,   0.0f, 0.0f, 1.0f,   0.0f, 0.0f, // bottom left
+        -1.0f,  1.0f, 0.0f,   1.0f, 1.0f, 0.0f,   0.0f, 1.0f  // top left 
     };
     unsigned int indices[] = {  
         0, 1, 3, // first triangle
@@ -120,10 +131,12 @@ int main()
     // The FileSystem::getPath(...) is part of the GitHub repository so we can find files on any IDE/platform; replace it with your own image path.
     //unsigned char *data = stbi_load(FileSystem::getPath("resources/textures/container.jpg").c_str(), &width, &height, &nrChannels, 0);
     //unsigned char *data = stbi_load(FileSystem::getPath("resources/textures/container.jpg").c_str(), &width, &height, &nrChannels, 0);
-    unsigned char* data = nullptr;// stbi_load(FileSystem::getPath("resources/textures/container.jpg").c_str(), &width, &height, &nrChannels, 0);
+    width = image.get_width();
+    height = image.get_height();
+    unsigned char* data = image.buffer();// stbi_load(FileSystem::getPath("resources/textures/container.jpg").c_str(), &width, &height, &nrChannels, 0);
     if (data)
     {
-        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_BGR, GL_UNSIGNED_BYTE, data);
         glGenerateMipmap(GL_TEXTURE_2D);
     }
     else
