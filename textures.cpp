@@ -3,6 +3,7 @@
 #define GLFW_INCLUDE_NONE
 #include <GLFW/glfw3.h>
 #include <iostream>
+#include <getopt.h>
 
 #include "shader_s.h"
 #include "tgaimage.h"
@@ -13,6 +14,58 @@ void processInput(GLFWwindow *window);
 
 int main(int argc, char* argv[])
 {
+    enum {
+        //WINDOW_WIDTH,
+        //WINDOW_HEIGHT,
+        //CELLS_IN_X,
+        //CELLS_IN_Y,
+        //LAYERS,
+        //ENABLE_DEPTH_TEST,
+        //ENABLE_CULL_FACE,
+        //POLYGON_MODE,
+        SCALE,
+        HELP
+    };
+
+    const struct option options[] =
+    {
+        //{ "width",              1, NULL, WINDOW_WIDTH },
+        //{ "height",             1, NULL, WINDOW_HEIGHT },
+        //{ "cells-in-x",         1, NULL, CELLS_IN_X },
+        //{ "cells-in-y",         1, NULL, CELLS_IN_Y },
+        //{ "layers",             1, NULL, LAYERS },
+        //{ "enable-depth-test",  0, NULL, ENABLE_DEPTH_TEST },
+        //{ "enable-cull-face",   0, NULL, ENABLE_CULL_FACE },
+        //{ "polygon-mode",       1, NULL, POLYGON_MODE },
+        { "scale", required_argument, NULL, SCALE },
+        { "help",  no_argument,       NULL, HELP },
+        { NULL, 0, NULL, 0 }
+    };
+
+    char ch;
+    while ((ch = getopt_long(argc, argv, "s:h", options, NULL)) != -1)
+    {
+        switch (ch)
+        {
+        case 'f':
+        //case FRAMES:
+        //    if (strcmp(optarg, "-") != 0)
+        //    {
+        //        optind;
+        //        //parse_int(&frames, "frames");
+        //    }
+        //    break;
+        case 'h':
+        case HELP:
+            //usage();
+            exit(EXIT_SUCCESS);
+            break;
+        default:
+            //usage();
+            exit(EXIT_FAILURE);
+        }
+    }
+
     if (argc < 2)
     {
         printf("Usage: %s <image.tga>\n", argv[0]);
