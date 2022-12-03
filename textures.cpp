@@ -7,6 +7,7 @@
 
 //#include <learnopengl/filesystem.h>
 #include "shader_s.h"
+#include "tgaimage.h"
 
 #include <iostream>
 
@@ -14,33 +15,40 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void processInput(GLFWwindow *window);
 
 // settings
-const unsigned int SCR_WIDTH = 800;
-const unsigned int SCR_HEIGHT = 600;
+//const unsigned int SCR_WIDTH = 800;
+//const unsigned int SCR_HEIGHT = 600;
 
-#include "tgaimage.h"
+//
+//const TGAColor white = TGAColor(255, 255, 255, 255);
+//const TGAColor red = TGAColor(255, 0, 0, 255);
+//
+//int main1(int argc, char** argv) {
+//    TGAImage image(100, 100, TGAImage::RGB);
+//    image.set(12, 12, red);
+//    image.flip_vertically(); // i want to have the origin at the left bottom corner of the image
+//    image.write_tga_file("output.tga");
+//    return 0;
+//}
 
-const TGAColor white = TGAColor(255, 255, 255, 255);
-const TGAColor red = TGAColor(255, 0, 0, 255);
-
-int main1(int argc, char** argv) {
-    TGAImage image(100, 100, TGAImage::RGB);
-    image.set(12, 12, red);
-    image.flip_vertically(); // i want to have the origin at the left bottom corner of the image
-    image.write_tga_file("output.tga");
-    return 0;
-}
-
-int main()
+int main(int argc, char* argv[])
 {
-    TGAImage image(240, 240, TGAImage::RGB);
-    for (int i = 10; i < 20; i++)
+    if (argc < 2)
     {
-        for (int j = 20; j < 30; j++)
-        {
-            image.set(j, i, white);
-        }
+        printf("Usage: %s <image.tga>\n", argv[0]);
+        return -1;
     }
-    image.set(12, 12, red);
+
+    TGAImage image;
+    if (!image.read_tga_file(argv[1]))
+    {
+        return -2;
+    }
+
+    //TGAImage image(240, 240, TGAImage::RGB);
+
+    int width = image.get_width();
+    int height = image.get_height();
+
     //image.flip_vertically(); // i want to have the origin at the left bottom corner of the image
 
     // glfw: initialize and configure
@@ -56,7 +64,7 @@ int main()
 
     // glfw window creation
     // --------------------
-    GLFWwindow* window = glfwCreateWindow(200, 200, "LearnOpenGL", NULL, NULL);
+    GLFWwindow* window = glfwCreateWindow(width, height, "LearnOpenGL", NULL, NULL);
     if (window == NULL)
     {
         std::cout << "Failed to create GLFW window" << std::endl;
@@ -127,12 +135,12 @@ int main()
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
     // load image, create texture and generate mipmaps
-    int width, height, nrChannels;
+    //int width, height, nrChannels;
     // The FileSystem::getPath(...) is part of the GitHub repository so we can find files on any IDE/platform; replace it with your own image path.
     //unsigned char *data = stbi_load(FileSystem::getPath("resources/textures/container.jpg").c_str(), &width, &height, &nrChannels, 0);
     //unsigned char *data = stbi_load(FileSystem::getPath("resources/textures/container.jpg").c_str(), &width, &height, &nrChannels, 0);
-    width = image.get_width();
-    height = image.get_height();
+    //width = image.get_width();
+    //height = image.get_height();
     unsigned char* data = image.buffer();// stbi_load(FileSystem::getPath("resources/textures/container.jpg").c_str(), &width, &height, &nrChannels, 0);
     if (data)
     {
