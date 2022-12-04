@@ -22,7 +22,7 @@ def convert(in_file, out_file):
 
 if __name__ == "__main__":
     print(sys.argv)
-    input_dir = os.path.join(sys.argv[1], "shaders")
+    input_dir = sys.argv[1]
     output_dir = sys.argv[2]
     output_file_basename = sys.argv[3]
     output_header_file = os.path.join(output_dir, output_file_basename + ".h")
