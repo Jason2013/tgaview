@@ -3,7 +3,7 @@ project(tga_viewer)
 
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
-set(CMAKE_PREFIX_PATH ${CMAKE_SOURCE_DIR}/external/glfw;${CMAKE_PREFIX_PATH})
+list(PREPEND CMAKE_PREFIX_PATH ${CMAKE_SOURCE_DIR}/external/glfw)
 find_package(glfw3 REQUIRED)
 
 add_subdirectory(external/glad)
