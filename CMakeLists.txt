@@ -10,6 +10,7 @@ add_subdirectory(external/glad)
 add_subdirectory(external/getopt)
 add_subdirectory(external/tgaimage)
 
+set_target_properties(glad PROPERTIES FOLDER external)
 set_target_properties(getopt PROPERTIES FOLDER external)
 set_target_properties(tgaimage PROPERTIES FOLDER external)
 
