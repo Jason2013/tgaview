@@ -54,9 +54,9 @@ if __name__ == "__main__":
             shader_file = sys.argv[i]
             input_shader_file = os.path.join(input_dir, shader_file)
             shader_var = shader_file.replace(".", "_")
-            hf.write("extern unsigned char %s_code[];\n" % shader_var)
-            sf.write("\n// This variable '%s_code' is generate from file: %s\n" % (shader_var, input_shader_file))
-            sf.write("unsigned char %s_code[] = {\n" % shader_var)
+            hf.write("extern const char %s_code[];\n" % shader_var)
+            sf.write("\n// This variable '%s_code' is generate from file: '%s'\n" % (shader_var, os.path.normpath(input_shader_file)))
+            sf.write("const char %s_code[] = {\n" % shader_var)
             with open(input_shader_file, "rb") as isf: 
                 convert(isf, sf)
             sf.write("};\n")

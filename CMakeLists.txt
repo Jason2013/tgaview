@@ -25,12 +25,15 @@ add_custom_command(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/shaders.h
         ${CMAKE_CURRENT_SOURCE_DIR}/shaders/texture.vs
 )
 
-add_executable(tgaview textures.cpp
+add_library(shaders STATIC 
     ${CMAKE_CURRENT_BINARY_DIR}/shaders.h
     ${CMAKE_CURRENT_BINARY_DIR}/shaders.cpp
 )
+target_include_directories(shaders PUBLIC ${CMAKE_CURRENT_BINARY_DIR})
 
-target_link_libraries(tgaview glfw glad getopt tgaimage)
+add_executable(tgaview textures.cpp)
+
+target_link_libraries(tgaview glfw glad getopt tgaimage shaders)
 
 #add_custom_command(TARGET tgaview POST_BUILD
 #    COMMAND ${CMAKE_COMMAND} -E copy_if_different ${CMAKE_SOURCE_DIR}/4.1.texture.vs ${CMAKE_BINARY_DIR}/4.1.texture.vs

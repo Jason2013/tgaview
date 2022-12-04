@@ -7,7 +7,7 @@
 
 #include "shader_s.h"
 #include "tgaimage.h"
-
+#include "shaders.h"
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void processInput(GLFWwindow *window);
@@ -141,7 +141,7 @@ int main(int argc, char* argv[])
 
     // build and compile our shader zprogram
     // ------------------------------------
-    Shader ourShader("4.1.texture.vs", "4.1.texture.fs"); 
+    Shader ourShader(texture_vs_code, texture_fs_code);
 
     // set up vertex data (and buffer(s)) and configure vertex attributes
     // ------------------------------------------------------------------
