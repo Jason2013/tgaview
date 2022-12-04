@@ -12,6 +12,27 @@
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void processInput(GLFWwindow *window);
 
+void parse_int(int* n, char* name)
+{
+    int t = atoi(optarg);
+    if (t > 0)
+    {
+        *n = t;
+    }
+    else
+    {
+        fprintf(stderr, "'%s' must be a number greater than zero!\n", name);
+        exit(EXIT_FAILURE);
+    }
+}
+
+void usage()
+{
+    printf("Usage: tgaview [-s SCALE] [-h] <image.tga>\n");
+    printf(" -s SCALE, --scale SCALE  scale factor, default: 1\n");
+    printf(" -h, --help               Show this usage help\n");
+}
+
 int main(int argc, char* argv[])
 {
     enum {
@@ -42,38 +63,44 @@ int main(int argc, char* argv[])
         { NULL, 0, NULL, 0 }
     };
 
+    int scale = 1;
     char ch;
     while ((ch = getopt_long(argc, argv, "s:h", options, NULL)) != -1)
     {
         switch (ch)
         {
-        case 'f':
-        //case FRAMES:
-        //    if (strcmp(optarg, "-") != 0)
-        //    {
-        //        optind;
-        //        //parse_int(&frames, "frames");
-        //    }
-        //    break;
+        case 's':
+        case SCALE:
+            parse_int(&scale, "scale");
+            break;
         case 'h':
         case HELP:
-            //usage();
+            usage();
             exit(EXIT_SUCCESS);
             break;
         default:
-            //usage();
+            usage();
             exit(EXIT_FAILURE);
         }
     }
 
-    if (argc < 2)
+    if (optind != argc - 1)
     {
-        printf("Usage: %s <image.tga>\n", argv[0]);
+        // Missing <image.tga>
+        usage();
         return -1;
     }
 
+    char const* tga_file = argv[optind];
+
+    //if (argc < 2)
+    //{
+    //    printf("Usage: %s <image.tga>\n", argv[0]);
+    //    return -1;
+    //}
+
     TGAImage image;
-    if (!image.read_tga_file(argv[1]))
+    if (!image.read_tga_file(tga_file))
     {
         return -2;
     }
