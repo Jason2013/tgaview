@@ -18,6 +18,7 @@ find_package(Python3 COMPONENTS Interpreter REQUIRED)
 
 add_custom_command(OUTPUT ${CMAKE_BINARY_DIR}/shaders.h
         ${CMAKE_BINARY_DIR}/shaders.cpp
+    COMMAND echo ${PYTHON3_EXECUTABLE} ${CMAKE_SOURCE_DIR}/shaders/generate_shader_src.py ${CMAKE_SOURCE_DIR} ${CMAKE_BINARY_DIR} shaders texture.fs texture.vs
     COMMAND ${PYTHON3_EXECUTABLE} ${CMAKE_SOURCE_DIR}/shaders/generate_shader_src.py ${CMAKE_SOURCE_DIR} ${CMAKE_BINARY_DIR} shaders texture.fs texture.vs
     WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
     COMMENT "show a message"
