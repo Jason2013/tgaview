@@ -28,8 +28,9 @@ void parse_int(int* n, char* name)
 void usage()
 {
     printf("Usage: tgaview [-s SCALE] [-h] <image.tga>\n");
-    printf(" -s SCALE, --scale SCALE  scale factor, default: 1\n");
-    printf(" -h, --help               Show this usage help\n");
+    printf("\nOptions: \n");
+    printf(" -s SCALE, --scale SCALE  = Scale factor, default: 1\n");
+    printf(" -h, --help               = Show this usage help\n");
 }
 
 int main(int argc, char* argv[])
@@ -97,7 +98,7 @@ int main(int argc, char* argv[])
 
     // glfw window creation
     // --------------------
-    GLFWwindow* window = glfwCreateWindow(width * scale, height * scale, "LearnOpenGL", NULL, NULL);
+    GLFWwindow* window = glfwCreateWindow(width * scale, height * scale, "TGA Viewer", NULL, NULL);
     if (window == NULL)
     {
         std::cout << "Failed to create GLFW window" << std::endl;
