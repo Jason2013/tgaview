@@ -1,2 +1,2 @@
-add_library(glad INTERFACE)
-target_include_directories(glad INTERFACE ${CMAKE_CURRENT_SOURCE_DIR})
+add_library(glad STATIC glad/gl.h glad.c)
+target_include_directories(glad PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})

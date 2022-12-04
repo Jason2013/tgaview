@@ -15,21 +15,21 @@ set_target_properties(tgaimage PROPERTIES FOLDER external)
 
 find_package(Python3 COMPONENTS Interpreter REQUIRED)
 
-add_custom_command(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/shaders.h
-        ${CMAKE_CURRENT_BINARY_DIR}/shaders.cpp
-    COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/shaders/generate_shader_src.py ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_BINARY_DIR} shaders texture.fs texture.vs
-    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+add_custom_command(OUTPUT ${CMAKE_BINARY_DIR}/shaders.h
+        ${CMAKE_BINARY_DIR}/shaders.cpp
+    COMMAND ${CMAKE_SOURCE_DIR}/shaders/generate_shader_src.py ${CMAKE_SOURCE_DIR} ${CMAKE_BINARY_DIR} shaders texture.fs texture.vs
+    WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
     COMMENT "show a message"
-    DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/shaders/generate_shader_src.py
-        ${CMAKE_CURRENT_SOURCE_DIR}/shaders/texture.fs
-        ${CMAKE_CURRENT_SOURCE_DIR}/shaders/texture.vs
+    DEPENDS ${CMAKE_SOURCE_DIR}/shaders/generate_shader_src.py
+        ${CMAKE_SOURCE_DIR}/shaders/texture.fs
+        ${CMAKE_SOURCE_DIR}/shaders/texture.vs
 )
 
 add_library(shaders STATIC 
-    ${CMAKE_CURRENT_BINARY_DIR}/shaders.h
-    ${CMAKE_CURRENT_BINARY_DIR}/shaders.cpp
+    ${CMAKE_BINARY_DIR}/shaders.h
+    ${CMAKE_BINARY_DIR}/shaders.cpp
 )
-target_include_directories(shaders PUBLIC ${CMAKE_CURRENT_BINARY_DIR})
+target_include_directories(shaders PUBLIC ${CMAKE_BINARY_DIR})
 
 add_executable(tgaview textures.cpp)
 
