@@ -36,28 +36,12 @@ void usage()
 int main(int argc, char* argv[])
 {
     enum {
-        //WINDOW_WIDTH,
-        //WINDOW_HEIGHT,
-        //CELLS_IN_X,
-        //CELLS_IN_Y,
-        //LAYERS,
-        //ENABLE_DEPTH_TEST,
-        //ENABLE_CULL_FACE,
-        //POLYGON_MODE,
         SCALE,
         HELP
     };
 
     const struct option options[] =
     {
-        //{ "width",              1, NULL, WINDOW_WIDTH },
-        //{ "height",             1, NULL, WINDOW_HEIGHT },
-        //{ "cells-in-x",         1, NULL, CELLS_IN_X },
-        //{ "cells-in-y",         1, NULL, CELLS_IN_Y },
-        //{ "layers",             1, NULL, LAYERS },
-        //{ "enable-depth-test",  0, NULL, ENABLE_DEPTH_TEST },
-        //{ "enable-cull-face",   0, NULL, ENABLE_CULL_FACE },
-        //{ "polygon-mode",       1, NULL, POLYGON_MODE },
         { "scale", required_argument, NULL, SCALE },
         { "help",  no_argument,       NULL, HELP },
         { NULL, 0, NULL, 0 }
@@ -92,13 +76,6 @@ int main(int argc, char* argv[])
     }
 
     char const* tga_file = argv[optind];
-
-    //if (argc < 2)
-    //{
-    //    printf("Usage: %s <image.tga>\n", argv[0]);
-    //    return -1;
-    //}
-
     TGAImage image;
     if (!image.read_tga_file(tga_file))
     {
