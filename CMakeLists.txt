@@ -33,7 +33,8 @@ add_library(shaders STATIC
 )
 target_include_directories(shaders PUBLIC ${CMAKE_BINARY_DIR})
 
-add_executable(tgaview textures.cpp)
+add_executable(tgaview src/textures.cpp src/shader_s.h)
+target_include_directories(tgaview PRIVATE src)
 
 target_link_libraries(tgaview glfw glad getopt tgaimage shaders)
 

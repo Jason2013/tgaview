@@ -3,9 +3,9 @@
 #include <GLFW/glfw3.h>
 #include <iostream>
 #include <getopt.h>
+#include <tgaimage.h>
 
 #include "shader_s.h"
-#include "tgaimage.h"
 #include "shaders.h"
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
